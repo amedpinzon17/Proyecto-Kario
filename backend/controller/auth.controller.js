@@ -48,12 +48,12 @@ const login = async (req, res) => {
 
         const suerFound = await Usuarios.findOne({correo});
         if(!suerFound)
-        return res.status(400).json({alert: ("User not found")})
+        return res.status(400).json({alert: "User not found"})
 
         const passworkCompare = await bcryptjs.compare(contrasena, suerFound.contrasena);
         if(!passworkCompare)
          return res.status(400).json({ 
-        alert: ("Incorrect Passwork ")
+        alert: "Incorrect Passwork "
     })
 
 
