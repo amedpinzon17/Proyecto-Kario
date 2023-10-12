@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function Example2() {
 
-  const [APIData, setAPIData] = useState([]);
+  // const [APIData, setAPIData] = useState([]);
   const [usuarios, setUsuarios] = useState([]);
 
 

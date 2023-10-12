@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button, Form } from 'semantic-ui-react';
 import './styles.css'
 import logo from '../../Assets/img/kario.svg';
+import { Alert } from 'bootstrap';
 
 
 function Login() {
@@ -24,6 +25,7 @@ function Login() {
 
         axios.post('http://localhost:5050/auth/login', usuario).then((response) => {
             console.log('Usuario autenticado:', response.data);
+            alert('Usuario autenticado');
             navigate('/indicadores');
         }).catch((error) => {
             console.log(error);
@@ -49,8 +51,10 @@ function Login() {
                     <Form className='create' >
                         <Form.Field>
                             <label for="exampleInputPassword1" class="form-label">Email</label>
-                            <input type="text" className="form-control inputEmail" value={correo} onChange={(e) => setCorreo(e.target.value)} />
+                            <input type="text" className="form-control inputEmail" value={correo} onChange={(e) => setCorreo(e.target.value)}  />
+                           
                         </Form.Field>
+                        
 
 
                         <Form.Field>

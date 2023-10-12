@@ -22,7 +22,7 @@ function App() {
       </Routes>
 
       <Routes>
-        <Route path="/register" element={<CreateRegistro />} />
+        <Route path="/" element={<CreateRegistro />} />
       </Routes>
     </div>
   )
