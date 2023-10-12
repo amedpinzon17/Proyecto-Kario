@@ -18,12 +18,12 @@ const indicadorSchema = mongoose.Schema({
     }, 
 
     fechaInicio: {
-        type: Date,
+        type: String,
      
     },
 
     fechaFinal: {
-        type: Date,
+        type: String,
      
     },
 

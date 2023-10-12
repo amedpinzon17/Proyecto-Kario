@@ -6,7 +6,7 @@ const ReporteSchema = new mongoose.Schema({
 
   descripcion: String,
 
-  fechaCreacion: Date,
+  fechaCreacion: String,
 
   idUsuario: {
     type: mongoose.Schema.Types.ObjectId,
