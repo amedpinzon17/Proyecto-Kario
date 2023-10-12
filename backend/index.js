@@ -12,6 +12,8 @@ const reportes = require('./routes/reportes.routes.js')
 const usuarios = require('./routes/usuarios.routes.js')
 
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger/specs.js');
 
 require('dotenv').config();
 app.use(express.json());
@@ -48,6 +50,7 @@ mongoose.connect(url, {
     app.use('/api', usuarios)
     
 
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
     
     app.listen(port, () => {
         console.log(`conexion establecida en el puerto ${port}`);

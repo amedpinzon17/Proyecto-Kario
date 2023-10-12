@@ -1,5 +1,5 @@
-import React, { useEffect, useState} from 'react';
-import {Table, Button} from 'semantic-ui-react';
+import React, { useEffect, useState } from 'react';
+import { Table, Button } from 'semantic-ui-react';
 import { CircularProgress, CircularProgressLabel } from "@chakra-ui/react";
 /* import { Link} from 'react-router-dom'; */
 import axios from 'axios';
@@ -26,34 +26,34 @@ import gearSvg from "../../Assets/img/gear-fill.svg";
 
 
 
-export default function ReadIndicadores (){
-    const [APIData, setAPIData] = useState([]);
+export default function ReadIndicadores() {
+  const [APIData, setAPIData] = useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost:5050/api/getIndicador').then(( response) => {
-            console.log(response.data);
-            setAPIData(response.data)
-        })
-    }, []);
-
-
-
-    const onDelete = (_id) =>{
-        axios.delete(`http://localhost:5050/api/deleteIndicador/${_id}`)
-        .then((response) => {
-            console.log('elemento eliminado', response.data);
-            window.location.reload();
-        })
-        .catch((error) => {
-            console.error('error al eliminar el elemento', error)
-        });
-
-    };
+  useEffect(() => {
+    axios.get('http://localhost:5050/api/getIndicador').then((response) => {
+      console.log(response.data);
+      setAPIData(response.data)
+    })
+  }, []);
 
 
 
-    return (
-      <div>
+  const onDelete = (_id) => {
+    axios.delete(`http://localhost:5050/api/deleteIndicador/${_id}`)
+      .then((response) => {
+        console.log('elemento eliminado', response.data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        console.error('error al eliminar el elemento', error)
+      });
+
+  };
+
+
+
+  return (
+    <div>
 
       <nav class="navbar navbar-expand-lg border-bottom">
         <div class="container-fluid">
@@ -103,10 +103,10 @@ export default function ReadIndicadores (){
                     <a
                       class="nav-link d-flex gap-2 fw-semibold text-black"
                       href="/"
-                      
+
                     >
-                      
-                     
+
+
                     </a>
                   </li>
                   <li class="nav-item">
@@ -133,11 +133,11 @@ export default function ReadIndicadores (){
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 gap-5">
                   <li class="nav-item">
                     <img src={logo} alt="" width="42px" style={{
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-              }}/>
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                    }} />
                     <a
                       class="nav-link d-flex gap-2 fw-semibold text-black"
                       aria-current="page"
@@ -200,62 +200,62 @@ export default function ReadIndicadores (){
       </div>
 
       <div className="d-flex flex-wrap justify-content-center align-items-center">
-            <div className="table-responsive-xxl">
-                <Table className="tablitaa table table-hover table-borderless">
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>Delete</Table.HeaderCell>
-                            <Table.HeaderCell>Indicador</Table.HeaderCell>
-                            <Table.HeaderCell>Descripción</Table.HeaderCell>
-                            <Table.HeaderCell>Categoría</Table.HeaderCell>
-                            <Table.HeaderCell>Fecha Inicio</Table.HeaderCell>
-                            <Table.HeaderCell>Fecha Final</Table.HeaderCell>
-                            <Table.HeaderCell>Metodología</Table.HeaderCell>
-                            <Table.HeaderCell>Cumplimiento</Table.HeaderCell>
-                            <Table.HeaderCell>Frecuencia</Table.HeaderCell>
-                            <Table.HeaderCell>Área</Table.HeaderCell>
-                            
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {APIData.map((data) => (
-                            <Table.Row key={data._id}>
-                                <Table.Cell>
-                            <Button onClick={() => onDelete(data._id)} colorScheme="red" variant="solid">
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  width="16"
-                                  height="16"
-                                  fill="white"
-                                  class="bi bi-trash-fill"
-                                  viewBox="0 0 16 16"
-                                >
-                                  <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
-                                </svg>
-                            </Button>
-                        </Table.Cell>
-                                <Table.Cell className= "text-truncate">{data.indicador}</Table.Cell>
-                                <Table.Cell className= "text-truncate">{data.descripcion}</Table.Cell>
-                                <Table.Cell className= "text-truncate">{data.categoria}</Table.Cell>
-                                <Table.Cell className= "text-truncate">{data.fechaInicio}</Table.Cell>
-                                <Table.Cell className= "text-truncate">{data.fechaFinal}</Table.Cell>
-                                <Table.Cell className= "text-truncate">{data.metodologia}</Table.Cell>
-                                <Table.Cell>
-                                    <CircularProgress value={data.cumplimiento} size="45px" color={data.cumplimiento < 50 ? "red" : (data.cumplimiento >= 50 && data.cumplimiento <= 75) ? "orange" : "green"}>
-                                        <CircularProgressLabel>{data.cumplimiento}%</CircularProgressLabel>
-                                    </CircularProgress>
-                                </Table.Cell> 
-                                <Table.Cell className= "text-truncate">{data.frecuencia}</Table.Cell>
-                                <Table.Cell className= "text-truncate">{data.area}</Table.Cell>
-                                <Table.Cell></Table.Cell>
-                            </Table.Row>
-                        ))}
-                    </Table.Body>
-                </Table>
-            </div>
+        <div className="table-responsive-xxl">
+          <Table className="tablitaa table table-hover table-borderless">
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Delete</Table.HeaderCell>
+                <Table.HeaderCell>Indicador</Table.HeaderCell>
+                <Table.HeaderCell>Descripción</Table.HeaderCell>
+                <Table.HeaderCell>Categoría</Table.HeaderCell>
+                <Table.HeaderCell>Fecha Inicio</Table.HeaderCell>
+                <Table.HeaderCell>Fecha Final</Table.HeaderCell>
+                <Table.HeaderCell>Metodología</Table.HeaderCell>
+                <Table.HeaderCell>Cumplimiento</Table.HeaderCell>
+                <Table.HeaderCell>Frecuencia</Table.HeaderCell>
+                <Table.HeaderCell>Área</Table.HeaderCell>
+
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {APIData.map((data) => (
+                <Table.Row key={data._id}>
+                  <Table.Cell>
+                    <Button onClick={() => onDelete(data._id)} colorScheme="red" variant="solid">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="white"
+                        class="bi bi-trash-fill"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z" />
+                      </svg>
+                    </Button>
+                  </Table.Cell>
+                  <Table.Cell className="text-truncate">{data.indicador}</Table.Cell>
+                  <Table.Cell className="text-truncate">{data.descripcion}</Table.Cell>
+                  <Table.Cell className="text-truncate">{data.categoria}</Table.Cell>
+                  <Table.Cell className="text-truncate">{data.fechaInicio}</Table.Cell>
+                  <Table.Cell className="text-truncate">{data.fechaFinal}</Table.Cell>
+                  <Table.Cell className="text-truncate">{data.metodologia}</Table.Cell>
+                  <Table.Cell>
+                    <CircularProgress value={data.cumplimiento} size="45px" color={data.cumplimiento < 50 ? "red" : (data.cumplimiento >= 50 && data.cumplimiento <= 75) ? "orange" : "green"}>
+                      <CircularProgressLabel>{data.cumplimiento}%</CircularProgressLabel>
+                    </CircularProgress>
+                  </Table.Cell>
+                  <Table.Cell className="text-truncate">{data.frecuencia}</Table.Cell>
+                  <Table.Cell className="text-truncate">{data.area}</Table.Cell>
+                  <Table.Cell></Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table>
         </div>
       </div>
- );
+    </div>
+  );
 };
 
 

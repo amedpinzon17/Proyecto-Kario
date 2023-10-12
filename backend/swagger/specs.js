@@ -1,0 +1,406 @@
+const swaggerJsdoc = require('swagger-jsdoc');
+
+const swaggerDefinition = {
+  openapi: '3.0.2',
+  info: {
+    title: 'Panel de Indicadores.',
+    description: 'Aquí puedes visualizar todos los indicadores propuestos y añadidos por tu equipo de trabajo. Si quieres ver más detalles, haz clic en uno de ellos para obtener más información.',
+    version: '2.0.0',
+  },
+  servers: [
+    {
+      url: 'http://localhost:5050/api',
+    },
+  ],
+  tags: [
+    {
+      name: 'Usuarios',
+      description: 'Endpoints para gestionar usuarios.',
+    },
+    {
+      name: 'Indicadores',
+      description: 'Endpoints para gestionar indicadores.',
+    },
+    {
+      name: 'Reportes',
+      description: 'Endpoints para generar reportes.',
+    },
+  ],
+  paths: {
+    '/usuarios': {
+      get: {
+        tags: ['Usuarios'],
+        summary: 'Obtiene los datos de los usuarios.',
+        parameters: [
+          {
+            $ref: '#/components/parameters/token',
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'Respuesta exitosa',
+          },
+        },
+      },
+      post: {
+        tags: ['Usuarios'],
+        summary: 'Crea un nuevo usuario.',
+        requestBody: {
+          description: 'Datos del nuevo usuario.',
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  nombre: {
+                    type: 'string',
+                  },
+                  email: {
+                    type: 'string',
+                  },
+                  password: {
+                    type: 'string',
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          '201': {
+            description: 'Creado exitosamente',
+          },
+          '400': {
+            $ref: '#/components/responses/BadRequest',
+          },
+          '500': {
+            $ref: '#/components/responses/ServerError',
+          },
+        },
+      },
+      put: {
+        tags: ['Usuarios'],
+        summary: 'Actualiza datos de un usuario existente.',
+        parameters: [
+          {
+            $ref: '#/components/parameters/token',
+          },
+        ],
+        requestBody: {
+          description: 'Nuevos datos del usuario.',
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  nombre: {
+                    type: 'string',
+                  },
+                  email: {
+                    type: 'string',
+                  },
+                  password: {
+                    type: 'string',
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          '200': {
+            description: 'Actualizado exitosamente',
+          },
+          '400': {
+            $ref: '#/components/responses/BadRequest',
+          },
+          '404': {
+            $ref: '#/components/responses/NotFound',
+          },
+          '500': {
+            $ref: '#/components/responses/ServerError',
+          },
+        },
+      },
+      delete: {
+        tags: ['Usuarios'],
+        summary: 'Elimina un usuario existente.',
+        parameters: [
+          {
+            $ref: '#/components/parameters/token',
+          },
+        ],
+        responses: {
+          '204': {
+            description: 'Eliminado exitosamente',
+          },
+          '404': {
+            $ref: '#/components/responses/NotFound',
+          },
+          '500': {
+            $ref: '#/components/responses/ServerError',
+          },
+        },
+      },
+    },
+    '/indicadores': {
+      get: {
+        tags: ['Indicadores'],
+        summary: 'Obtiene los datos de los indicadores.',
+        parameters: [
+          {
+            $ref: '#/components/parameters/token',
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'Respuesta exitosa',
+          },
+        },
+      },
+      post: {
+        tags: ['Indicadores'],
+        summary: 'Crea un nuevo indicador.',
+        requestBody: {
+          description: 'Datos del nuevo indicador.',
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  nombre: {
+                    type: 'string',
+                  },
+                  descripcion: {
+                    type: 'string',
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          '201': {
+            description: 'Creado exitosamente',
+          },
+          '400': {
+            $ref: '#/components/responses/BadRequest',
+          },
+          '500': {
+            $ref: '#/components/responses/ServerError',
+          },
+        },
+      },
+      put: {
+        tags: ['Indicadores'],
+        summary: 'Actualiza datos de un indicador existente.',
+        parameters: [
+          {
+            $ref: '#/components/parameters/token',
+          },
+        ],
+        requestBody: {
+          description: 'Nuevos datos del indicador.',
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  nombre: {
+                    type: 'string',
+                  },
+                  descripcion: {
+                    type: 'string',
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          '200': {
+            description: 'Actualizado exitosamente',
+          },
+          '400': {
+            $ref: '#/components/responses/BadRequest',
+          },
+          '404': {
+            $ref: '#/components/responses/NotFound',
+          },
+          '500': {
+            $ref: '#/components/responses/ServerError',
+          },
+        },
+      },
+      delete: {
+        tags: ['Indicadores'],
+        summary: 'Elimina un indicador existente.',
+        parameters: [
+          {
+            $ref: '#/components/parameters/token',
+          },
+        ],
+        responses: {
+          '204': {
+            description: 'Eliminado exitosamente',
+          },
+          '404': {
+            $ref: '#/components/responses/NotFound',
+          },
+          '500': {
+            $ref: '#/components/responses/ServerError',
+          },
+        },
+      },
+    },
+    '/reportes': {
+      get: {
+        tags: ['Reportes'],
+        summary: 'Obtiene los datos de los reportes.',
+        parameters: [
+          {
+            $ref: '#/components/parameters/token',
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'Respuesta exitosa',
+          },
+        },
+      },
+      post: {
+        tags: ['Reportes'],
+        summary: 'Crea un nuevo reporte.',
+        requestBody: {
+          description: 'Datos del nuevo reporte.',
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  nombre: {
+                    type: 'string',
+                  },
+                  contenido: {
+                    type: 'string',
+                  },
+                },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          '201': {
+            description: 'Creado exitosamente',
+          },
+          '400': {
+            $ref: '#/components/responses/BadRequest',
+          },
+          '500': {
+            $ref: '#/components/responses/ServerError',
+          },
+        },
+      },
+      put: {
+        tags: ['Reportes'],
+        summary: 'Actualiza datos de un indicador existente.',
+        parameters: [
+          {
+            $ref: '#/components/parameters/token',
+          },
+        ],
+        requestBody: {
+          description: 'Nuevos datos del indicador.',
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                type: 'object',
+                properties: {
+                  nombre: {
+                    type: 'string',
+                  },
+                  descripcion: {
+                    type: 'string',
+                  },
+                },
+              },
+            },
+          },
+        },
+        responses: {
+          '200': {
+            description: 'Actualizado exitosamente',
+          },
+          '400': {
+            $ref: '#/components/responses/BadRequest',
+          },
+          '404': {
+            $ref: '#/components/responses/NotFound',
+          },
+          '500': {
+            $ref: '#/components/responses/ServerError',
+          },
+        },
+      },
+      delete: {
+        tags: ['Reportes'],
+        summary: 'Elimina un indicador existente.',
+        parameters: [
+          {
+            $ref: '#/components/parameters/token',
+          },
+        ],
+        responses: {
+          '204': {
+            description: 'Eliminado exitosamente',
+          },
+          '404': {
+            $ref: '#/components/responses/NotFound',
+          },
+          '500': {
+            $ref: '#/components/responses/ServerError',
+          },
+        },
+      },
+    },
+  components: {
+    responses: {
+      BadRequest: {
+        description: 'Los datos son incorrectos o no se proporcionaron correctamente',
+      },
+      NotFound: {
+        description: 'No se encontró el recurso solicitado',
+      },
+      ServerError: {
+        description: 'Error interno del servidor',
+      },
+    },
+    parameters: {
+      token: {
+        in: 'header',
+        name: 'Authorization',
+        description: 'Token de autenticación',
+        required: false,
+        schema: {
+          type: 'string',
+        },
+      },
+    },
+  },
+}
+
+
+const specs = swaggerJsdoc({
+  swaggerDefinition,
+  apis: ['./app.js'],
+});
+
+module.exports = specs;
+
